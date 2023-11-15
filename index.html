@@ -1,0 +1,687 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title id="title">Recipe Calculator</title>
+    <link rel="icon" type="image/png" href="resource/logo.png">
+
+    <!-- Bootstrap 4 Stylesheet
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+     -->
+    <!-- Bootstrap 5 Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
+        integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap Select Stylesheet -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css">
+
+    <!-- FontAwesome Icons Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/redesign.css">
+
+</head>
+
+
+<body class="expanded">
+
+    <!-- Get theme before loading JS -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            var body = document.getElementsByTagName('body')[0];
+            body.classList.add("dark-theme");
+        }
+    </script>
+
+    <div class="d-flex position-relative">
+
+        <div class="side-menu d-none d-md-flex">
+
+            <a href="#" class="nav-link d-flex d-md-none align-items-center rounded position-absolute px-3 py-4 me-4"
+                style="right: -80px; top:10px;" id="close-sidemenu">
+                <i class="fa-solid fa-xmark text-white fa-2x"></i>
+            </a>
+
+            <nav class="navbar navbar-expand-lg navbar-light justify-content-between p-4">
+
+                <div class="w-100">
+
+                    <div class="text-center w-100">
+
+                        <div>
+                            <img src="resource/logo.png" height="60">
+                            <h1 class="mt-2 fs-4 item-text" style="margin-right: 1rem; color: #928b81;"><span
+                                    class="fw-light">Recipe</span><br><span class="fw-bold">Calculator</span>
+                            </h1>
+                        </div>
+
+                    </div>
+
+                    <div class="w-100 mt-5" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item active my-1">
+                                <a class="nav-link rounded" href="index.html">
+                                    <i class="fa-solid fa-calculator fa-xl"
+                                        style="width: 24px; text-align: center;"></i>
+                                    <span class="item-text">Calculator</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item my-1">
+                                <a class="nav-link rounded" href="#">
+                                    <i class="fa-solid fa-circle-question fa-xl"></i>
+                                    <span class="item-text">Help Center</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="w-100">
+                    <div class="bottomblock">
+
+                        <li class="nav-item" style="list-style-type: none;">
+                            <a href="#" class="nav-link rounded">
+                                <i class="fa-solid fa-gear fa-lg text-dark"></i><span class="item-text">Settings</span>
+                            </a>
+                        </li>
+
+                        <div class="theme-switch d-flex align-items-center">
+                            <input type="checkbox" id="theme-checkbox" />
+                            <div class="theme-mode-text-wrapper text-dark ms-2">
+                                <div class="theme-mode-text me-1">Dark Light</div>
+                                <div>mode</div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="item-text d-flex justify-content-between align-items-center text-dark"
+                            style="height: 30px; margin-right: 1rem;">
+                            <a href="#" class="nav-link fs-7">Privacy</a>
+                            <a href="#" class="nav-link  fs-7">Terms</a>
+                            <a href="#" class="nav-link  fs-7">Contact</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+
+        </div>
+
+
+        <div class="main d-flex w-100 position-relative">
+
+            <div class="wrapper position-relative container-fluid">
+
+                <div class="p-4">
+
+
+                    <div class="d-flex justify-content-between rounded border border-1 p-2 mb-4">
+
+                        <button type="button" class="btn btn-light py-1 px-3" id="print-recipe">
+                            <i class="fa-solid fa-print"></i><span class="item-text ms-3">Print recipe</span>
+                        </button>
+
+                        <div class="dropdown">
+                            <a href="#"
+                                class="btn btn-light py-1 px-3 d-flex justify-content-between align-items-center nodecoration dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="item-text">Download recipe</span>
+                                <i class="fa-solid fa-chevron-down text-dark ms-3"></i>
+                            </a>
+                            <ul class="dropdown-menu shadow" style="min-width: 150px;">
+                                <li>
+                                    <a class="dropdown-item text-dark" href="#">
+                                        <i class="fa-regular fa-file-pdf text-dark me-3"></i>PDF
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-dark" href="#">
+                                        <i class="fa-regular fa-file-word text-dark me-3"></i>DOC
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-dark" href="#">
+                                        <i class="fa-solid fa-file-excel text-dark me-3"></i>XLS
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="tables-wrapper">
+                        <div class="">
+                            <table class="table table-hover align-middle" id="calc-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="noprint"></th>
+                                        <th scope="col">Ingredient</th>
+                                        <th scope="col">Amount (grams)</th>
+                                        <th scope="col">Proportion</th>
+                                        <th scope="col">Sugar</th>
+                                        <th scope="col">Fat (Dairy & Plant)</th>
+                                        <th scope="col">Fat (Cocoa Butter)</th>
+                                        <th scope="col">Dry Fat-free Milk</th>
+                                        <th scope="col">Dry Fat-free Cocoa</th>
+                                        <th scope="col">Other Dry</th>
+                                        <th scope="col">Water</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row" class="noprint"><button type="button"
+                                                class="btn btn-danger minbtn removeCountryRow"><i
+                                                    class="fa-solid fa-minus"></i></button></td>
+                                        <td>
+                                            <select class="selectpicker" title="Select Ingredient"
+                                                aria-label="Select Ingredient" data-size="5" data-live-search="true">
+                                                <option value="1950">Ingredient #1950</option>
+                                                <option value="1951">Ingredient #1951</option>
+                                                <option value="1952">Ingredient #1952</option>
+                                                <option value="1953">Ingredient #1953</option>
+                                                <option value="1954">Ingredient #1954</option>
+                                                <option value="1955">Ingredient #1955</option>
+                                                <option value="1956">Ingredient #1956</option>
+                                                <option value="1957">Ingredient #1957</option>
+                                                <option value="1958">Ingredient #1958</option>
+                                                <option value="1959">Ingredient #1959</option>
+                                                <option value="1960">Ingredient #1960</option>
+                                                <option value="1961">Ingredient #1961</option>
+                                                <option value="1962">Ingredient #1962</option>
+                                                <option value="1963">Ingredient #1963</option>
+                                                <option value="1964">Ingredient #1964</option>
+                                                <option value="1965">Ingredient #1965</option>
+                                                <option value="1966">Ingredient #1966</option>
+                                                <option value="1967">Ingredient #1967</option>
+                                                <option value="1968">Ingredient #1968</option>
+                                                <option value="1969">Ingredient #1969</option>
+                                                <option value="1970">Ingredient #1970</option>
+                                                <option value="1971">Ingredient #1971</option>
+                                                <option value="1972">Ingredient #1972</option>
+                                                <option value="1973">Ingredient #1973</option>
+                                                <option value="1974">Ingredient #1974</option>
+                                                <option value="1975">Ingredient #1975</option>
+                                                <option value="1976">Ingredient #1976</option>
+                                                <option value="1977">Ingredient #1977</option>
+                                                <option value="1978">Ingredient #1978</option>
+                                                <option value="1979">Ingredient #1979</option>
+                                                <option value="1980">Ingredient #1980</option>
+                                                <option value="1981">Ingredient #1981</option>
+                                                <option value="1982">Ingredient #1982</option>
+                                                <option value="1983">Ingredient #1983</option>
+                                                <option value="1984">Ingredient #1984</option>
+                                                <option value="1985">Ingredient #1985</option>
+                                                <option value="1986">Ingredient #1986</option>
+                                                <option value="1987">Ingredient #1987</option>
+                                                <option value="1988">Ingredient #1988</option>
+                                                <option value="1989">Ingredient #1989</option>
+                                                <option value="1990">Ingredient #1990</option>
+                                                <option value="1991">Ingredient #1991</option>
+                                                <option value="1992">Ingredient #1992</option>
+                                                <option value="1993">Ingredient #1993</option>
+                                                <option value="1994">Ingredient #1994</option>
+                                                <option value="1995">Ingredient #1995</option>
+                                                <option value="1996">Ingredient #1996</option>
+                                                <option value="1997">Ingredient #1997</option>
+                                                <option value="1998">Ingredient #1998</option>
+                                                <option value="1999">Ingredient #1999</option>
+                                                <option value="2000">Ingredient #2000</option>
+                                                <option value="2001">Ingredient #2001</option>
+                                                <option value="2002">Ingredient #2002</option>
+                                                <option value="2003">Ingredient #2003</option>
+                                                <option value="2004">Ingredient #2004</option>
+                                                <option value="2005">Ingredient #2005</option>
+                                                <option value="2006">Ingredient #2006</option>
+                                                <option value="2007">Ingredient #2007</option>
+                                                <option value="2008">Ingredient #2008</option>
+                                                <option value="2009">Ingredient #2009</option>
+                                                <option value="2010">Ingredient #2010</option>
+                                                <option value="2011">Ingredient #2011</option>
+                                                <option value="2012">Ingredient #2012</option>
+                                                <option value="2013">Ingredient #2013</option>
+                                                <option value="2014">Ingredient #2014</option>
+                                                <option value="2015">Ingredient #2015</option>
+                                                <option value="2016">Ingredient #2016</option>
+                                                <option value="2017">Ingredient #2017</option>
+                                                <option value="2018">Ingredient #2018</option>
+                                                <option value="2019">Ingredient #2019</option>
+                                                <option value="2020">Ingredient #2020</option>
+                                                <option value="2021">Ingredient #2021</option>
+                                                <option value="2022">Ingredient #2022</option>
+                                                <option value="2023">Ingredient #2023</option>
+                                                <option value="2024">Ingredient #2024</option>
+                                                <option value="2025">Ingredient #2025</option>
+                                                <option value="2026">Ingredient #2026</option>
+                                                <option value="2027">Ingredient #2027</option>
+                                                <option value="2028">Ingredient #2028</option>
+                                                <option value="2029">Ingredient #2029</option>
+                                                <option value="2030">Ingredient #2030</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0"
+                                                    onblur="findTotalGrams()" aria-label="Grams"
+                                                    aria-describedby="basic-addon2" value="0">
+                                                <span class="input-group-text">g</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="proportion"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row" class="noprint"><button type="button"
+                                                class="btn btn-danger minbtn removeCountryRow"><i
+                                                    class="fa-solid fa-minus"></i></button></td>
+                                        <td>
+                                            <select class="selectpicker" title="Select Ingredient"
+                                                aria-label="Select Ingredient" data-size="5" data-live-search="true">
+                                                <option value="1950">Ingredient #1950</option>
+                                                <option value="1951">Ingredient #1951</option>
+                                                <option value="1952">Ingredient #1952</option>
+                                                <option value="1953">Ingredient #1953</option>
+                                                <option value="1954">Ingredient #1954</option>
+                                                <option value="1955">Ingredient #1955</option>
+                                                <option value="1956">Ingredient #1956</option>
+                                                <option value="1957">Ingredient #1957</option>
+                                                <option value="1958">Ingredient #1958</option>
+                                                <option value="1959">Ingredient #1959</option>
+                                                <option value="1960">Ingredient #1960</option>
+                                                <option value="1961">Ingredient #1961</option>
+                                                <option value="1962">Ingredient #1962</option>
+                                                <option value="1963">Ingredient #1963</option>
+                                                <option value="1964">Ingredient #1964</option>
+                                                <option value="1965">Ingredient #1965</option>
+                                                <option value="1966">Ingredient #1966</option>
+                                                <option value="1967">Ingredient #1967</option>
+                                                <option value="1968">Ingredient #1968</option>
+                                                <option value="1969">Ingredient #1969</option>
+                                                <option value="1970">Ingredient #1970</option>
+                                                <option value="1971">Ingredient #1971</option>
+                                                <option value="1972">Ingredient #1972</option>
+                                                <option value="1973">Ingredient #1973</option>
+                                                <option value="1974">Ingredient #1974</option>
+                                                <option value="1975">Ingredient #1975</option>
+                                                <option value="1976">Ingredient #1976</option>
+                                                <option value="1977">Ingredient #1977</option>
+                                                <option value="1978">Ingredient #1978</option>
+                                                <option value="1979">Ingredient #1979</option>
+                                                <option value="1980">Ingredient #1980</option>
+                                                <option value="1981">Ingredient #1981</option>
+                                                <option value="1982">Ingredient #1982</option>
+                                                <option value="1983">Ingredient #1983</option>
+                                                <option value="1984">Ingredient #1984</option>
+                                                <option value="1985">Ingredient #1985</option>
+                                                <option value="1986">Ingredient #1986</option>
+                                                <option value="1987">Ingredient #1987</option>
+                                                <option value="1988">Ingredient #1988</option>
+                                                <option value="1989">Ingredient #1989</option>
+                                                <option value="1990">Ingredient #1990</option>
+                                                <option value="1991">Ingredient #1991</option>
+                                                <option value="1992">Ingredient #1992</option>
+                                                <option value="1993">Ingredient #1993</option>
+                                                <option value="1994">Ingredient #1994</option>
+                                                <option value="1995">Ingredient #1995</option>
+                                                <option value="1996">Ingredient #1996</option>
+                                                <option value="1997">Ingredient #1997</option>
+                                                <option value="1998">Ingredient #1998</option>
+                                                <option value="1999">Ingredient #1999</option>
+                                                <option value="2000">Ingredient #2000</option>
+                                                <option value="2001">Ingredient #2001</option>
+                                                <option value="2002">Ingredient #2002</option>
+                                                <option value="2003">Ingredient #2003</option>
+                                                <option value="2004">Ingredient #2004</option>
+                                                <option value="2005">Ingredient #2005</option>
+                                                <option value="2006">Ingredient #2006</option>
+                                                <option value="2007">Ingredient #2007</option>
+                                                <option value="2008">Ingredient #2008</option>
+                                                <option value="2009">Ingredient #2009</option>
+                                                <option value="2010">Ingredient #2010</option>
+                                                <option value="2011">Ingredient #2011</option>
+                                                <option value="2012">Ingredient #2012</option>
+                                                <option value="2013">Ingredient #2013</option>
+                                                <option value="2014">Ingredient #2014</option>
+                                                <option value="2015">Ingredient #2015</option>
+                                                <option value="2016">Ingredient #2016</option>
+                                                <option value="2017">Ingredient #2017</option>
+                                                <option value="2018">Ingredient #2018</option>
+                                                <option value="2019">Ingredient #2019</option>
+                                                <option value="2020">Ingredient #2020</option>
+                                                <option value="2021">Ingredient #2021</option>
+                                                <option value="2022">Ingredient #2022</option>
+                                                <option value="2023">Ingredient #2023</option>
+                                                <option value="2024">Ingredient #2024</option>
+                                                <option value="2025">Ingredient #2025</option>
+                                                <option value="2026">Ingredient #2026</option>
+                                                <option value="2027">Ingredient #2027</option>
+                                                <option value="2028">Ingredient #2028</option>
+                                                <option value="2029">Ingredient #2029</option>
+                                                <option value="2030">Ingredient #2030</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0"
+                                                    onblur="findTotalGrams()" aria-label="Grams"
+                                                    aria-describedby="basic-addon2" value="0">
+                                                <span class="input-group-text">g</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="proportion"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row" class="noprint"><button type="button"
+                                                class="btn btn-danger minbtn removeCountryRow"><i
+                                                    class="fa-solid fa-minus"></i></button></td>
+                                        <td>
+                                            <select class="selectpicker" title="Select Ingredient"
+                                                aria-label="Select Ingredient" data-size="5" data-live-search="true">
+                                                <option value="1950">Ingredient #1950</option>
+                                                <option value="1951">Ingredient #1951</option>
+                                                <option value="1952">Ingredient #1952</option>
+                                                <option value="1953">Ingredient #1953</option>
+                                                <option value="1954">Ingredient #1954</option>
+                                                <option value="1955">Ingredient #1955</option>
+                                                <option value="1956">Ingredient #1956</option>
+                                                <option value="1957">Ingredient #1957</option>
+                                                <option value="1958">Ingredient #1958</option>
+                                                <option value="1959">Ingredient #1959</option>
+                                                <option value="1960">Ingredient #1960</option>
+                                                <option value="1961">Ingredient #1961</option>
+                                                <option value="1962">Ingredient #1962</option>
+                                                <option value="1963">Ingredient #1963</option>
+                                                <option value="1964">Ingredient #1964</option>
+                                                <option value="1965">Ingredient #1965</option>
+                                                <option value="1966">Ingredient #1966</option>
+                                                <option value="1967">Ingredient #1967</option>
+                                                <option value="1968">Ingredient #1968</option>
+                                                <option value="1969">Ingredient #1969</option>
+                                                <option value="1970">Ingredient #1970</option>
+                                                <option value="1971">Ingredient #1971</option>
+                                                <option value="1972">Ingredient #1972</option>
+                                                <option value="1973">Ingredient #1973</option>
+                                                <option value="1974">Ingredient #1974</option>
+                                                <option value="1975">Ingredient #1975</option>
+                                                <option value="1976">Ingredient #1976</option>
+                                                <option value="1977">Ingredient #1977</option>
+                                                <option value="1978">Ingredient #1978</option>
+                                                <option value="1979">Ingredient #1979</option>
+                                                <option value="1980">Ingredient #1980</option>
+                                                <option value="1981">Ingredient #1981</option>
+                                                <option value="1982">Ingredient #1982</option>
+                                                <option value="1983">Ingredient #1983</option>
+                                                <option value="1984">Ingredient #1984</option>
+                                                <option value="1985">Ingredient #1985</option>
+                                                <option value="1986">Ingredient #1986</option>
+                                                <option value="1987">Ingredient #1987</option>
+                                                <option value="1988">Ingredient #1988</option>
+                                                <option value="1989">Ingredient #1989</option>
+                                                <option value="1990">Ingredient #1990</option>
+                                                <option value="1991">Ingredient #1991</option>
+                                                <option value="1992">Ingredient #1992</option>
+                                                <option value="1993">Ingredient #1993</option>
+                                                <option value="1994">Ingredient #1994</option>
+                                                <option value="1995">Ingredient #1995</option>
+                                                <option value="1996">Ingredient #1996</option>
+                                                <option value="1997">Ingredient #1997</option>
+                                                <option value="1998">Ingredient #1998</option>
+                                                <option value="1999">Ingredient #1999</option>
+                                                <option value="2000">Ingredient #2000</option>
+                                                <option value="2001">Ingredient #2001</option>
+                                                <option value="2002">Ingredient #2002</option>
+                                                <option value="2003">Ingredient #2003</option>
+                                                <option value="2004">Ingredient #2004</option>
+                                                <option value="2005">Ingredient #2005</option>
+                                                <option value="2006">Ingredient #2006</option>
+                                                <option value="2007">Ingredient #2007</option>
+                                                <option value="2008">Ingredient #2008</option>
+                                                <option value="2009">Ingredient #2009</option>
+                                                <option value="2010">Ingredient #2010</option>
+                                                <option value="2011">Ingredient #2011</option>
+                                                <option value="2012">Ingredient #2012</option>
+                                                <option value="2013">Ingredient #2013</option>
+                                                <option value="2014">Ingredient #2014</option>
+                                                <option value="2015">Ingredient #2015</option>
+                                                <option value="2016">Ingredient #2016</option>
+                                                <option value="2017">Ingredient #2017</option>
+                                                <option value="2018">Ingredient #2018</option>
+                                                <option value="2019">Ingredient #2019</option>
+                                                <option value="2020">Ingredient #2020</option>
+                                                <option value="2021">Ingredient #2021</option>
+                                                <option value="2022">Ingredient #2022</option>
+                                                <option value="2023">Ingredient #2023</option>
+                                                <option value="2024">Ingredient #2024</option>
+                                                <option value="2025">Ingredient #2025</option>
+                                                <option value="2026">Ingredient #2026</option>
+                                                <option value="2027">Ingredient #2027</option>
+                                                <option value="2028">Ingredient #2028</option>
+                                                <option value="2029">Ingredient #2029</option>
+                                                <option value="2030">Ingredient #2030</option>
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0"
+                                                    onblur="findTotalGrams()" aria-label="Grams"
+                                                    aria-describedby="basic-addon2" value="0">
+                                                <span class="input-group-text">g</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="proportion"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row" class="noprint"><button type="button"
+                                                class="btn btn-primary minbtn" id="addCountryRow">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button></td>
+                                        <td><span id="tot-ingredients"></span>
+                                        </td>
+                                        <td><span id="total-grams"></span></td>
+                                        <td><span id="total-proportion"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <script>
+                        function findTotalGrams() {
+                            var totalingredients = document.getElementById("calc-table").rows.length - 2;
+                            document.getElementById("tot-ingredients").innerHTML = totalingredients + " Ingredients";
+
+                            var arr = document.querySelectorAll('input[type="number"]');
+                            var tot = 0;
+                            for (var i = 0; i < arr.length; i++) {
+                                var thisInputValue = parseInt(arr[i].value);
+                                if (thisInputValue)
+                                    tot += thisInputValue;
+                            }
+                            document.getElementById('total-grams').innerHTML = tot + " grams";
+
+
+                            for (var i = 0; i < arr.length; i++) {
+                                var thisInputValue = parseInt(arr[i].value);
+                                var fixNumber = thisInputValue / tot * 100;
+                                var roundedNumber = fixNumber > 0 ? Math.round((fixNumber + Number.EPSILON) * 100) / 100 : 0;
+                                arr[i].closest('td').nextElementSibling.firstChild.innerHTML = roundedNumber + "%";
+                            }
+
+                            var totalProportion = tot > 0 ? "100%" : "0%";
+                            document.getElementById('total-proportion').innerHTML = totalProportion;
+                        }
+                    </script>
+
+                    <script>
+                        if (localStorage.getItem('theme') === 'dark') {
+                            const mytables = document.getElementsByClassName('table');
+                            var len = mytables !== null ? mytables.length : 0;
+                            var i = 0;
+                            for (i; i < len; i++) {
+                                mytables[i].className += " table-dark";
+                            }
+                        }
+                    </script>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <style>
+        .country-flag {
+            height: 20px;
+            margin-right: 10px;
+            margin-top: -5px;
+        }
+
+        .bootstrap-select .dropdown-menu {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+
+        .input-group {
+            width: 130px;
+            border-radius: 0.375rem;
+        }
+
+        .input-group input {
+            background-color: #f8f9fa;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: none;
+            padding: 0.375rem;
+        }
+
+        .minbtn {
+            height: 30px;
+            width: 30px;
+            border-radius: 30px !important;
+            padding: 0;
+        }
+
+        .age-text text-dark {
+            text-align: center;
+            width: 60px;
+        }
+
+        .dropdown-item.active,
+        .dropdown-item:active {
+            color: #fff !important;
+            border-radius: 0.4rem;
+        }
+
+        .table input {
+            text-align: end;
+            padding: 0;
+        }
+
+        .dropdown input {
+            text-align: start;
+        }
+
+        .table-settings button {
+            border: none;
+        }
+
+        .btn {
+            border: none;
+        }
+
+        .country-row .dropdown {
+            flex-grow: 1;
+        }
+
+        .form-check-input[type=checkbox] {
+            padding: 0.6rem;
+        }
+    </style>
+
+
+    <script>
+        (function ($) {
+            $('select').selectpicker();
+        });
+    </script>
+
+
+    <!-- jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"
+        integrity="sha512-ToL6UYWePxjhDQKNioSi4AyJ5KkRxY+F1+Fi7Jgh0Hp5Kk2/s8FD7zusJDdonfe5B00Qw+B8taXxF6CFLnqNCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
+
+    <!-- Main Javascript File -->
+    <script src="js/main.js"></script>
+
+    <!-- Javascript File for this page
+    <script src="js/explore.js"></script>
+     -->
+
+</body>
+
+</html>
