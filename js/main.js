@@ -1,14 +1,6 @@
 (function ($) {
     "use strict";
 
-    /*
-    if (localStorage.getItem('theme') === 'dark') {
-        $("body").removeClass("dark-theme");
-        $("body").addClass("dark-theme");
-        $("#theme-checkbox").prop("checked", true);
-    }
-    */
-
     if (localStorage.getItem('theme') === 'dark') {
         $("#theme-checkbox").prop("checked", true);
         $(".theme-mode-text").css("margin-top", "0");
